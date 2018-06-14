@@ -124,9 +124,9 @@ struct ResultOutputter
             os << aConType[walker] << ',';
             os << aModType[walker] << ',';
             os << lid[walker] << ',';
-            os << lemma_id[walker] << ',';
+            os << lemma_id[walker] << '\n';
         }
-        os << std::endl;
+        os << "EOS" << std::endl;
         return true;
     }
 };
