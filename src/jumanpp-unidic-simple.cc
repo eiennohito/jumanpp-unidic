@@ -26,10 +26,12 @@ struct ResultOutputter
     core::analysis::StringField pron;
     core::analysis::StringField orthBase;
     core::analysis::StringField pronBase;
+    core::analysis::StringField goshu;
     core::analysis::StringField iType;
     core::analysis::StringField iForm;
     core::analysis::StringField fType;
     core::analysis::StringField fForm;
+    core::analysis::StringField iConType;
     core::analysis::StringField fConType;
     core::analysis::StringField type;
     core::analysis::StringField kana;
@@ -61,10 +63,12 @@ struct ResultOutputter
         JPP_RETURN_IF_ERROR(output.stringField("pron", &pron));
         JPP_RETURN_IF_ERROR(output.stringField("orthBase", &orthBase));
         JPP_RETURN_IF_ERROR(output.stringField("pronBase", &pronBase));
+        JPP_RETURN_IF_ERROR(output.stringField("goshu", &goshu));
         JPP_RETURN_IF_ERROR(output.stringField("iType", &iType));
         JPP_RETURN_IF_ERROR(output.stringField("iForm", &iForm));
         JPP_RETURN_IF_ERROR(output.stringField("fType", &fType));
         JPP_RETURN_IF_ERROR(output.stringField("fForm", &fForm));
+        JPP_RETURN_IF_ERROR(output.stringField("iConType", &iConType));
         JPP_RETURN_IF_ERROR(output.stringField("fConType", &fConType));
         JPP_RETURN_IF_ERROR(output.stringField("type", &type));
         JPP_RETURN_IF_ERROR(output.stringField("kana", &kana));
@@ -121,10 +125,12 @@ struct ResultOutputter
             os << pron[walker] << ',';
             os << orthBase[walker] << ',';
             os << pronBase[walker] << ',';
+            os << goshu[walker] << ',';
             os << iType[walker] << ',';
             os << iForm[walker] << ',';
             os << fType[walker] << ',';
             os << fForm[walker] << ',';
+            os << iConType[walker] << ',';
             os << fConType[walker] << ',';
             os << type[walker] << ',';
             os << kana[walker] << ',';
