@@ -45,12 +45,15 @@ FIELD_NAMES = [
     "lemma_id",
 ]
 
+TRAIN_FIELDS = {"pos1", "pos2", "pos3", "pos4", "cType", "cForm", "lForm", "lemma", "orth", "pron", "orthBase",
+                "pronBase", "goshu", "type", "aType", "aConType", "aModType"}
+
 
 def makeDict(fields):
     res = {}
     for i in range(len(fields)):
         val = fields[i]
-        if val != '*' and len(val) > 0:
+        if val != '*' and len(val) > 0 and FIELD_NAMES[i] in TRAIN_FIELDS:
             res[FIELD_NAMES[i]] = val
     return res
 

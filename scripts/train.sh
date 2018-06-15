@@ -3,7 +3,8 @@
 JUMANPP_TOOL="$1"
 SEED_MODEL="$2"
 CORPUS="$3"
-OUTPUT_MODEL="$4"
+PART_CORPUS="$4"
+OUTPUT_MODEL="$5"
 
 NTHREADS="${NTHREADS:-4}"
 EPOCHS="${EPOCHS:-10}"
@@ -17,6 +18,7 @@ set -x
     --model-input="$SEED_MODEL" \
     --model-output="$OUTPUT_MODEL" \
     --corpus="$CORPUS" \
+    --partial-corpus="$PART_CORPUS" \
     --csv-corpus-format \
     --size="$MODEL_SIZE" \
     --beam="$LOC_BEAM" \

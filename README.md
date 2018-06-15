@@ -31,7 +31,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j
 ```
 
-You will need `jumanpp/src/core/tool/jumnapp_tool` binaries for making a model
+You will need `jumanpp/src/core/tool/jumanpp_tool` binaries for making a model
 and `src/jumanpp-unidic-simple` for the analysis.
 
 ## Training a Model
@@ -73,7 +73,7 @@ Now let's create a seed model (without parameters).
 1. Create a raw analysis dictionary for Juman++ by concatenating `scripts/header.csv` and `lex.csv` from Unidic.
 1. Compile an analysis dictionary: 
 ```bash
-jumanpp/src/core/tool/jumnapp_tool index \
+jumanpp/src/core/tool/jumanpp_tool index \
     --spec ../src/unidic-2.3.0-simple.spec \
     --dict-file <concatenated dictionary> \
     --output unidic.seed
@@ -82,7 +82,7 @@ jumanpp/src/core/tool/jumnapp_tool index \
 
 And finally, let's train a model:
 ```bash
-../scripts/train.sh jumanpp/src/core/tool/jumnapp_tool unidic.seed \
+../scripts/train.sh jumanpp/src/core/tool/jumanpp_tool unidic.seed \
     core.mecab.out.full-tdata core.mecab.out.part-tdata \
     unidic.model
 ```
