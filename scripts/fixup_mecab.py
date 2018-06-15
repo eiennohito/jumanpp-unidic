@@ -22,7 +22,7 @@ def process(fd):
         surf = line[0]
         fparts = line[1:]
         if len(fparts) < 10:
-            print(line.rstrip(), file=sys.stderr)
+            print(','.join(line), file=sys.stderr)
             fparts.append(surf)
             fparts.append(surf)
             fparts.append(surf)
