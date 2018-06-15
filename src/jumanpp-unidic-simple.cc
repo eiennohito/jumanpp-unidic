@@ -97,6 +97,17 @@ struct ResultOutputter
                 return false;
             }
 
+            if (walker.eptr().isSpecial() && type == "未知語") {
+              os << surface[walker] << '\t';
+              os << pos1[walker] << ',';
+              os << pos2[walker] << ',';
+              os << pos3[walker] << ',';
+              os << pos4[walker] << ',';
+              os << cType[walker] << ',';
+              os << cForm[walker] << '\n';
+              continue;
+            }
+
             os << surface[walker] << '\t';
             os << pos1[walker] << ',';
             os << pos2[walker] << ',';

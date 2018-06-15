@@ -34,8 +34,40 @@ feature nodeCharType = codepoint_type 0
 feature nextCharType = codepoint_type 1
 feature charPlus1 = codepoint 1
 feature charPlus2 = codepoint 2
+feature notPrefix = placeholder
+feature length = num_codepoints
 
-unk catchall template row 1: single FAMILY_ANYTHING
+unk catchall template row 1: single FAMILY_ANYTHING surface to [surface]
+unk space template row 2: single SPACE surface to [surface]
+unk kanji_nn_ippan row 3: chunking KANJI surface to [surface] feature to notPrefix
+unk kanji_nn_sahen row 4: chunking KANJI surface to [surface] feature to notPrefix
+unk kanji_np_ippan row 5: chunking KANJI surface to [surface] feature to notPrefix
+unk kanji_np_persn row 6: chunking KANJI surface to [surface] feature to notPrefix
+unk kanji_np_locat row 7: chunking KANJI surface to [surface] feature to notPrefix
+
+unk symbl_nn_sahen row 4: chunking KANJI surface to [surface] feature to notPrefix
+
+unk alpha_nn_ippan row 3: chunking ALPH surface to [surface] feature to notPrefix
+unk alpha_np_ippan row 5: chunking ALPH surface to [surface] feature to notPrefix
+unk alpha_np_persn row 6: chunking ALPH surface to [surface] feature to notPrefix
+unk alpha_np_locat row 7: chunking ALPH surface to [surface] feature to notPrefix
+unk alpha_np_kando row 9: chunking ALPH surface to [surface] feature to notPrefix
+
+unk hirag_nn_ippan row 3: chunking HIRAGANA surface to [surface] feature to notPrefix
+unk hirag_nn_sahen row 4: chunking HIRAGANA surface to [surface] feature to notPrefix
+unk hirag_np_ippan row 5: chunking HIRAGANA surface to [surface] feature to notPrefix
+unk hirag_np_persn row 6: chunking HIRAGANA surface to [surface] feature to notPrefix
+unk hirag_np_locat row 7: chunking HIRAGANA surface to [surface] feature to notPrefix
+unk hirag_np_kando row 9: chunking HIRAGANA surface to [surface] feature to notPrefix
+
+unk katak_nn_ippan row 3: chunking KATAKANA surface to [surface] feature to notPrefix
+unk katak_nn_sahen row 4: chunking KATAKANA surface to [surface] feature to notPrefix
+unk katak_np_ippan row 5: chunking KATAKANA surface to [surface] feature to notPrefix
+unk katak_np_persn row 6: chunking KATAKANA surface to [surface] feature to notPrefix
+unk katak_np_locat row 7: chunking KATAKANA surface to [surface] feature to notPrefix
+unk katak_np_kando row 9: chunking KATAKANA surface to [surface] feature to notPrefix
+
+unk numeric row 8: numeric FAMILY_FIGURE surface to [surface]
 
 ngram [surface]
 ngram [pos1]
@@ -61,6 +93,8 @@ ngram [aModType]
 ngram [goshu]
 ngram [type]
 ngram [goshu, type, pos1]
+ngram [pos1, pos2, notPrefix]
+ngram [pos1, pos2, length]
 
 ngram [pron, aType]
 
