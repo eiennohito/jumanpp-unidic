@@ -39,7 +39,7 @@ and `src/jumanpp-unidic-simple` for the analysis.
 We will update BCCWJ tags to the modern Unidic,
 create training data for Juman++ and train a model.
 
-You will need about 10G of RAM to train a model using BCCWJ.
+You will need about 25G of RAM to train a model using BCCWJ.
 
 Paths for all binaries are written from the `build` directory.
 
