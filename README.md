@@ -1,6 +1,6 @@
 # What is it
 
-Unidic version of [Juman++](https://github.com/ku-nlp/jumanpp). 
+[Unidic](http://unidic.ninjal.ac.jp/) version of [Juman++](https://github.com/ku-nlp/jumanpp). 
 
 # How to use it
 
