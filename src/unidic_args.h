@@ -16,7 +16,7 @@ struct UnidicArgs {
   std::string model_;
   OutputFactory outputFactory_;
   i32 beamSize_ = 5;
-  i32 globalLeft_ = 4;
+  i32 globalLeft_ = 6;
   i32 globalCheck_ = 1;
   i32 globalRight_ = 4;
 
