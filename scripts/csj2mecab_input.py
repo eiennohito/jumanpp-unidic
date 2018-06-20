@@ -51,8 +51,8 @@ def process(fd):
 
 
 if __name__ == '__main__':
-    files = sys.argv[1:]
+    files = sys.argv[2:]
     for file in files:
-        with open(file, 'rt', encoding='utf-8', newline='') as fd:
+        with open(file, 'rt', encoding=sys.argv[1], newline='') as fd:
             process(fd)
             print('EOS')
