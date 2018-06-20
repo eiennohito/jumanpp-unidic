@@ -54,9 +54,6 @@ def process(fd):
             lemma,
             writSurf,
             pron,
-            '*',
-            '*',
-            kind,
             '*'
         ]
 

@@ -4,6 +4,7 @@
 import sys
 import csv
 
+noannotate = {"でしょ", "だろ", "か月"}
 
 def process(fd):
     length = 0
