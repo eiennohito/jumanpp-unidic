@@ -8,28 +8,11 @@
 #include <iostream>
 #include "util/status.hpp"
 #include "core/analysis/output.h"
-#include "core/analysis/analyzer.h"
 #include "core/analysis/analysis_result.h"
 #include "core/impl/graphviz_format.h"
+#include "unidic_args.h"
 
 namespace jumanpp {
-
-inline void dieOnError(Status s)
-{
-  if (!s)
-  {
-    std::cerr << s;
-    exit(1);
-  }
-}
-
-struct UnidicOutput {
-  virtual ~UnidicOutput() = default;
-  virtual Status initialize(const core::analysis::Analyzer& ana) = 0;
-  virtual bool outputResult(const core::analysis::Analyzer &ana, std::ostream &os) = 0;
-};
-
-using OutputFactory = std::function<std::unique_ptr<UnidicOutput>()>;
 
 struct UnidicFields : public virtual UnidicOutput {
   core::analysis::StringField surface;
@@ -66,13 +49,15 @@ struct UnidicFields : public virtual UnidicOutput {
   core::analysis::AnalysisResult resultFiller;
   core::analysis::AnalysisPath top1;
 
-  Status initialize(const core::analysis::Analyzer &ana) override;
+  UnidicArgs args;
+
+  Status initialize(const core::analysis::Analyzer &ana, const UnidicArgs& args) override;
 };
 
 
 struct GraphVizOutput: public virtual UnidicOutput {
   core::format::GraphVizFormat gvf;
-  Status initialize(const core::analysis::Analyzer &ana) override {
+  Status initialize(const core::analysis::Analyzer &ana, const UnidicArgs& args) override {
     core::format::GraphVizBuilder gvb;
     gvb.row({"surface"});
     gvb.row({"lemma"});
@@ -82,7 +67,7 @@ struct GraphVizOutput: public virtual UnidicOutput {
     return gvb.build(&gvf, 5);
   }
 
-  bool outputResult(const core::analysis::Analyzer &ana, std::ostream &os) override {
+  bool outputResult(const core::analysis::Analyzer &ana, StringPiece comment, std::ostream &os) override {
     gvf.reset();
     dieOnError(gvf.initialize(ana.output()));
     dieOnError(gvf.render(ana));
@@ -92,7 +77,7 @@ struct GraphVizOutput: public virtual UnidicOutput {
 };
 
 struct NormalOutput : UnidicFields {
-  bool outputResult(const core::analysis::Analyzer &ana, std::ostream &os) override;
+  bool outputResult(const core::analysis::Analyzer &ana, StringPiece comment, std::ostream &os) override;
 };
 
 } // namespace jumanpp

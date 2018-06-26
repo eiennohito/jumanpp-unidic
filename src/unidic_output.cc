@@ -7,7 +7,9 @@
 namespace jumanpp {
 
 
-Status UnidicFields::initialize(const core::analysis::Analyzer &ana) {
+Status UnidicFields::initialize(const core::analysis::Analyzer &ana, const UnidicArgs& args) {
+  this->args = args;
+
   auto &output = ana.output();
   JPP_RETURN_IF_ERROR(output.stringField("surface", &surface));
   JPP_RETURN_IF_ERROR(output.stringField("pos1", &pos1));
@@ -42,7 +44,7 @@ Status UnidicFields::initialize(const core::analysis::Analyzer &ana) {
   return Status::Ok();
 }
 
-bool NormalOutput::outputResult(const core::analysis::Analyzer &ana, std::ostream &os) {
+bool NormalOutput::outputResult(const core::analysis::Analyzer &ana, StringPiece comment, std::ostream &os) {
   if (!resultFiller.reset(ana))
     return false;
   if (!resultFiller.fillTop1(&top1))
@@ -50,6 +52,10 @@ bool NormalOutput::outputResult(const core::analysis::Analyzer &ana, std::ostrea
 
   auto &output = ana.output();
   core::analysis::NodeWalker walker;
+
+  if (args.handleComments_ && !comment.empty()) {
+    os << '#' << comment << '\n';
+  }
 
   core::analysis::ConnectionPtr cptr{};
   while (top1.nextBoundary())

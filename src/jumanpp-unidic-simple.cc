@@ -11,37 +11,42 @@
 
 using namespace jumanpp;
 
-int main(int argc, const char *argv[])
-{
-    core::JumanppEnv env;
-    UnidicArgs args;
-    dieOnError(UnidicArgs::parseArgs(&args, argc, argv));
-    dieOnError(env.loadModel(args.model_));
+int main(int argc, const char *argv[]) {
+  core::JumanppEnv env;
+  UnidicArgs args;
+  dieOnError(UnidicArgs::parseArgs(&args, argc, argv));
+  dieOnError(env.loadModel(args.model_));
 
-    env.setBeamSize(args.beamSize_);
-    env.setGlobalBeam(args.globalLeft_, args.globalCheck_, args.globalRight_);
+  env.setBeamSize(args.beamSize_);
+  env.setGlobalBeam(args.globalLeft_, args.globalCheck_, args.globalRight_);
 
-    jumanpp_generated::Unidic230Simple cg;
-    dieOnError(env.initFeatures(&cg));
+  jumanpp_generated::Unidic230Simple cg;
+  dieOnError(env.initFeatures(&cg));
 
-    core::analysis::Analyzer analyzer;
+  core::analysis::Analyzer analyzer;
 
-    dieOnError(env.makeAnalyzer(&analyzer));
+  dieOnError(env.makeAnalyzer(&analyzer));
 
-    auto out = args.outputFactory_();
-    dieOnError(out->initialize(analyzer));
+  auto out = args.outputFactory_();
+  dieOnError(out->initialize(analyzer, args));
 
-    std::string input;
-    while (std::getline(std::cin, input))
-    {
-        Status s = analyzer.analyze(input);
-        if (!s)
-        {
-            std::cerr << "Failed to analyze [" << input << "]: " << s;
-            continue;
-        }
-        out->outputResult(analyzer, std::cout);
+  std::string comment;
+  std::string input;
+  while (std::getline(std::cin, input)) {
+    if (args.handleComments_) {
+      if (input.size() > 1 && input[0] == '#') {
+        comment.assign(input.begin() + 1, input.end());
+        continue;
+      }
     }
 
-    return 0;
+    Status s = analyzer.analyze(input);
+    if (!s) {
+      std::cerr << "Failed to analyze [" << input << "]: " << s;
+      continue;
+    }
+    out->outputResult(analyzer, comment, std::cout);
+  }
+
+  return 0;
 }
