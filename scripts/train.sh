@@ -24,7 +24,7 @@ set -x
     --beam="$LOC_BEAM" \
     --threads="${NTHREADS}" \
     --max-batch-iters="$ITERS" --max-epochs="$EPOCHS" --epsilon=1e-7 \
-    --batch="100000" \
+    --batch="200000" \
     --gb-left-min=4 --gb-left-max=4 \
     --gb-right-min=4 --gb-right-max=4 \
     --gb-rcheck-min=1 --gb-rcheck-max=1 \
