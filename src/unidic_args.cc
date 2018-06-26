@@ -21,6 +21,7 @@ Status UnidicArgs::parseArgs(UnidicArgs *result, int argc, const char *argv[]) {
   std::unordered_map<std::string, OutputFactory> outputMap{
     {"normal",   []() { return make_unique<NormalOutput>(); }},
     {"graphviz", []() { return make_unique<GraphVizOutput>(); }},
+    {"tsv-noaux", []() { return make_unique<SimpleOutput>(); }},
   };
 
   args::ArgumentParser parser{"Juman++ Unidic"};

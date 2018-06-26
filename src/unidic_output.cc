@@ -111,4 +111,63 @@ bool NormalOutput::outputResult(const core::analysis::Analyzer &ana, StringPiece
   return true;
 }
 
+bool SimpleOutput::outputResult(const core::analysis::Analyzer &ana, StringPiece comment, std::ostream &os) {
+  if (!resultFiller.reset(ana))
+    return false;
+  if (!resultFiller.fillTop1(&top1))
+    return false;
+
+  auto &output = ana.output();
+  core::analysis::NodeWalker walker;
+
+  if (args.handleComments_ && !comment.empty()) {
+    os << '#' << comment << '\n';
+  }
+
+  core::analysis::ConnectionPtr cptr{};
+  while (top1.nextBoundary())
+  {
+    if (!top1.nextNode(&cptr) || !output.locate(cptr.latticeNodePtr(), &walker) || !walker.next())
+    {
+      return false;
+    }
+
+    if (walker.eptr().isSpecial() && type[walker] == "未知語") {
+      os << surface[walker] << '\t';
+      os << pos1[walker] << '\t';
+      os << pos2[walker] << '\t';
+      os << pos3[walker] << '\t';
+      os << pos4[walker] << '\t';
+      os << cType[walker] << '\t';
+      os << cForm[walker] << '\n';
+      continue;
+    }
+
+    os << surface[walker] << '\t';
+    os << pos1[walker] << '\t';
+    os << pos2[walker] << '\t';
+    os << pos3[walker] << '\t';
+    os << pos4[walker] << '\t';
+    os << cType[walker] << '\t';
+    os << cForm[walker] << '\t';
+    os << lForm[walker] << '\t';
+    os << lemma[walker] << '\t';
+    os << orth[walker] << '\t';
+    os << pron[walker] << '\t';
+    os << orthBase[walker] << '\t';
+    os << pronBase[walker] << '\t';
+    os << goshu[walker] << '\t';
+    os << type[walker] << '\t';
+    os << kana[walker] << '\t';
+    os << kanaBase[walker] << '\t';
+    os << form[walker] << '\t';
+    os << formBase[walker] << '\t';
+    os << aType[walker] << '\t';
+    os << lid[walker] << '\t';
+    os << lemma_id[walker] << '\n';
+  }
+  os << "EOS" << std::endl;
+  return true;
+}
+
 } // namespace jumanpp

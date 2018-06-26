@@ -80,6 +80,10 @@ struct NormalOutput : UnidicFields {
   bool outputResult(const core::analysis::Analyzer &ana, StringPiece comment, std::ostream &os) override;
 };
 
+struct SimpleOutput : UnidicFields {
+  bool outputResult(const core::analysis::Analyzer &ana, StringPiece comment, std::ostream &os) override;
+};
+
 } // namespace jumanpp
 
 #endif //JUMANPP_UNIDIC_UNIDIC_OUTPUT_H
